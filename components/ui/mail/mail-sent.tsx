@@ -20,7 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import React from "react";
-import { authSchema } from "@/validation/auth/authValidation";
 
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Paperclip } from "lucide-react";
@@ -41,6 +40,8 @@ import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
 import { trucks } from "@/utils/truck-arrays";
+import { mailSchema } from "@/app/validation/mail/mail";
+
 
 type Props = {};
 
@@ -195,7 +196,7 @@ const SendMail = (props: Props) => {
                     </FormItem>
                   )}
                 />
-           
+
                 <FormField
                   control={form.control}
                   name="message"
