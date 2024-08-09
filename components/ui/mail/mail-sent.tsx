@@ -34,7 +34,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { mailSendRequest } from "@/api/mail";
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
@@ -66,45 +65,45 @@ const SendMail = (props: Props) => {
   const handleClickSignin = async (formValues: z.infer<typeof mailSchema>) => {
     console.log(formValues);
 
-    try {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append("subject", formValues.subject);
-      formData.append("message", formValues.message);
-      if (attachment) {
-        formData.append("attachment", attachment);
-      }
-      setIsLoading(true);
-      const request = await mailSendRequest(formData);
-      console.log(request);
+    // try {
+    //   setIsLoading(true);
+    //   const formData = new FormData();
+    //   formData.append("subject", formValues.subject);
+    //   formData.append("message", formValues.message);
+    //   if (attachment) {
+    //     formData.append("attachment", attachment);
+    //   }
+    //   setIsLoading(true);
+    //   const request = await mailSendRequest(formData);
+    //   console.log(request);
 
-      const data = await request.json();
-      if (data?.success) {
-        toast({
-          title: "Success",
-          description: "Message sent successfully",
-          variant: "success",
-          duration: 900,
-        });
-        setIsLoading(false);
-      } else {
-        toast({
-          title: "Failed",
-          description: "Error occurred while sending the message",
-          variant: "destructive",
-          duration: 900,
-        });
-        setIsLoading(false);
-      }
-    } catch (error) {
-      toast({
-        title: "Error (Server)",
-        description: "Message sending failed",
-        variant: "destructive",
-        duration: 900,
-      });
-      setIsLoading(false);
-    }
+    //   const data = await request.json();
+    //   if (data?.success) {
+    //     toast({
+    //       title: "Success",
+    //       description: "Message sent successfully",
+    //       variant: "success",
+    //       duration: 900,
+    //     });
+    //     setIsLoading(false);
+    //   } else {
+    //     toast({
+    //       title: "Failed",
+    //       description: "Error occurred while sending the message",
+    //       variant: "destructive",
+    //       duration: 900,
+    //     });
+    //     setIsLoading(false);
+    //   }
+    // } catch (error) {
+    //   toast({
+    //     title: "Error (Server)",
+    //     description: "Message sending failed",
+    //     variant: "destructive",
+    //     duration: 900,
+    //   });
+    //   setIsLoading(false);
+    // }
   };
 
   const handleDownloadPDF = () => {
