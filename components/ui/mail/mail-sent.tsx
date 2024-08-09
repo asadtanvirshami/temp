@@ -25,7 +25,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2, Paperclip } from "lucide-react";
 
 import { useRouter } from "next/navigation";
-import { mailSchema } from "@/validation/mail/mail";
+import { mailSchema } from "../../../validation/mail/mail";
 import { Textarea } from "../textarea";
 import {
   Select,
@@ -40,7 +40,6 @@ import * as XLSX from "xlsx";
 
 import { trucks } from "@/utils/truck-arrays";
 import { mailSchema } from "@/app/validation/mail/mail";
-
 
 type Props = {};
 
