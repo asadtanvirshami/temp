@@ -39,7 +39,6 @@ import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
 import { trucks } from "@/utils/truck-arrays";
-import { mailSchema } from "@/app/validation/mail/mail";
 
 type Props = {};
 
