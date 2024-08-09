@@ -25,7 +25,7 @@ import { Loader2, Upload } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 
-import { mailSchema } from "../../../app/validation/mail/mail";
+import { mailSchema } from "../../../validation/mail/mail";
 import { Textarea } from "../textarea";
 
 import jsPDF from "jspdf";
@@ -65,7 +65,6 @@ const SendMail = (props: Props) => {
     //     formData.append("attachment", attachment);
     //   }
     //   setIsLoading(true);
-
 
     //   if (data?.success) {
     //     toast({
@@ -162,14 +161,19 @@ const SendMail = (props: Props) => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Trucks");
 
     // Generate the XLSX file and create a Blob URL for preview
-    const xlsxBlob = new Blob([XLSX.write(workbook, { bookType: "xlsx", type: "array" })], { type: "application/octet-stream" });
+    const xlsxBlob = new Blob(
+      [XLSX.write(workbook, { bookType: "xlsx", type: "array" })],
+      { type: "application/octet-stream" }
+    );
     const fileReader = new FileReader();
 
     fileReader.onload = (e) => {
       const arrayBuffer = e.target?.result as ArrayBuffer;
       const data = new Uint8Array(arrayBuffer);
       const workbook = XLSX.read(data, { type: "array" });
-      const html = XLSX.utils.sheet_to_html(workbook.Sheets[workbook.SheetNames[0]]);
+      const html = XLSX.utils.sheet_to_html(
+        workbook.Sheets[workbook.SheetNames[0]]
+      );
       setXlsxContent(html);
       setShowXlsxPreview(true);
     };
@@ -199,14 +203,10 @@ const SendMail = (props: Props) => {
           >
             Download XLSX
           </Button>
-          <Button
-            type="button"
-            onClick={handlePrint}
-            className="bg-orange-500"
-          >
+          <Button type="button" onClick={handlePrint} className="bg-orange-500">
             Print
           </Button>
-          
+
           <input
             ref={fileInputRef}
             type="file"
@@ -227,10 +227,7 @@ const SendMail = (props: Props) => {
           >
             Preview XLSX
           </Button>
-          <Button
-            onClick={handleButtonClick}
-            className="bg-red-500 "
-          >
+          <Button onClick={handleButtonClick} className="bg-red-500 ">
             <Upload className="w-5 h-5 mr-2" />
             Upload File
           </Button>
