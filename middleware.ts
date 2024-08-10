@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { NextResponse, type NextRequest } from "next/server";
 import { getUserCredentials } from "./lib/auth/getUserCredentials";
@@ -13,24 +13,26 @@ export async function middleware(request: NextRequest) {
   // request.cookies.delete("tokens");
 
   const pathname = request.nextUrl.pathname;
-  if(pathname === '/') {
+  if (pathname === "/") {
     const response = NextResponse.redirect(new URL("/login", request.url));
     return response;
   }
 
   // Get user credentials from the request
-  const credentials = getUserCredentials(request);
+  // const credentials = getUserCredentials(request);
   // console.log(credentials)
 
-  if(pathname === '/login' && credentials) {
+  // if(pathname === '/login' && credentials) {
+  if (pathname === "/login") {
     const response = NextResponse.redirect(new URL("/invoice", request.url));
     return response;
   }
   // Check if the current route is protected and user credentials are missing
   // or the refresh token is not valid
   if (
-    (protectedRoutes.includes(pathname) && !credentials) ||
-    (await isValidJWT(credentials?.token ?? ""))
+    protectedRoutes.includes(pathname)
+    // (protectedRoutes.includes(pathname) && !credentials) ||
+    // (await isValidJWT(credentials?.token ?? ""))
   ) {
     // Delete the "user" cookie to log the user out
     request.cookies.delete("user");
