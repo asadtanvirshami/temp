@@ -14,12 +14,12 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
   if (pathname === "/") {
-    const response = NextResponse.redirect(new URL("/login", request.url));
+    const response = NextResponse.redirect(new URL("/invoice", request.url));
     return response;
   }
 
   // Get user credentials from the request
-  // const credentials = getUserCredentials(request);
+  const credentials = getUserCredentials(request);
   // console.log(credentials)
 
   // if(pathname === '/login' && credentials) {
@@ -29,23 +29,23 @@ export async function middleware(request: NextRequest) {
   }
   // Check if the current route is protected and user credentials are missing
   // or the refresh token is not valid
-  if (
-    protectedRoutes.includes(pathname)
-    // (protectedRoutes.includes(pathname) && !credentials) ||
-    // (await isValidJWT(credentials?.token ?? ""))
-  ) {
-    // Delete the "user" cookie to log the user out
-    request.cookies.delete("user");
+  // if (
+  //   // (protectedRoutes.includes(pathname) && !credentials) ||
+  //   // (await isValidJWT(credentials?.token ?? ""))
+  //   protectedRoutes.includes(pathname)
+  // ) {
+  //   // Delete the "user" cookie to log the user out
+  //   // request.cookies.delete("user");
 
-    // Create a redirection response to the "/auth" endpoint
-    const response = NextResponse.redirect(new URL("/login", request.url));
+  //   // Create a redirection response to the "/auth" endpoint
+  //   // const response = NextResponse.redirect(new URL("/login", request.url));
 
-    // Delete the "user" cookie from the response as well
-    response.cookies.delete("user");
+  //   // Delete the "user" cookie from the response as well
+  //   // response.cookies.delete("user");
 
-    // Return the redirection response
-    return response;
-  }
+  //   // Return the redirection response
+  //   return response;
+  // }
 
   // If the route is not protected or the user has valid credentials, continue to the next middleware
   return NextResponse.next();
